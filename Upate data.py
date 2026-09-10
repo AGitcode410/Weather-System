@@ -2,9 +2,9 @@ import requests
 import mysql.connector # type: ignore
 import time
 from datetime import datetime
-api_key='55f5312003c036ce48901b62a8350172'
+api_key=''
 session=requests.Session()
-conn=mysql.connector.connect(host='localhost', user='root', password='anishG2010', database='weather')
+
 cursor=conn.cursor()
 cities = [
     # Andhra Pradesh
