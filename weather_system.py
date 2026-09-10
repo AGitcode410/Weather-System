@@ -18,8 +18,8 @@ entry=tk.Entry(main_frame,width=40)
 entry.pack(pady=10)
 result=tk.Label(main_frame,text="",justify="left",font=("Segoe UI Emoji",11))
 result.pack(pady=10)
-api_key='55f5312003c036ce48901b62a8350172'#this is the API key which is like a key to a door which opens to a world of data provided by a platform
-conn=mysql.connector.connect(host='localhost', user='root', password='anishG2010', database='weather')
+api_key=''#this is the API key which is like a key to a door which opens to a world of data provided by a platform
+
 cursor=conn.cursor()
 cursor.execute("""create table if not exists search_history(id int primary key auto_increment, city varchar(100))""")
 conn.commit()
