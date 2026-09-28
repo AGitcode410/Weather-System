@@ -19,7 +19,7 @@ entry.pack(pady=10)
 result=tk.Label(main_frame,text="",justify="left",font=("Segoe UI Emoji",11))
 result.pack(pady=10)
 api_key=''#this is the API key which is like a key to a door which opens to a world of data provided by a platform
-
+conn = mysql.connector.connect(host="localhost",user="root",password="",database="weather_data")
 cursor=conn.cursor()
 cursor.execute("""create table if not exists search_history(id int primary key auto_increment, city varchar(100))""")
 conn.commit()
@@ -238,7 +238,7 @@ def create_city_tables():
     conn.commit()
 create_city_tables()
 
-def graph():
+def correlation_graph():
     main_frame.pack_forget()
     graph_frame.pack(fill='both',expand=True)
 
@@ -262,6 +262,22 @@ def graph():
     run_btn=tk.Button(graph_frame,text='Get Graph',font=('Calibri',12),command=lambda: create_graph(xaxis,yaxis,cty))
     run_btn.pack(pady=10)
 
+def trend_graph():
+    main_frame.pack_forget()
+    graph_frame.pack(fill='both',expand=True)
+    y=tk.Label(graph_frame,text='Y-axis:',font=('Times New Roman',11))
+    y.pack(pady=5)
+    yaxis=tk.Entry(graph_frame,width=20)
+    yaxis.pack(pady=5)
+    
+    cty_entry=tk.Label(graph_frame,text='City:',font=('Times New Roman',11))
+    cty_entry.pack(pady=5)
+    cty=tk.Entry(graph_frame,width=20)
+    cty.pack(pady=5)
+
+    run_btn=tk.Button(graph_frame,text='Get Graph',font=('Calibri',12),command=lambda: create_graph("Timestamp",yaxis,cty))
+    run_btn.pack(pady=10)
+    
 
 def create_graph(xaxis,yaxis,cty):
 
@@ -286,8 +302,10 @@ def back():
 
 
 
-graph_btn=tk.Button(main_frame,text='Graph',font=('Calibri',12),command=graph)
-graph_btn.pack(pady=5)    
+correlation_btn=tk.Button(main_frame,text='Correlation Graph',font=('Calibri',12),command=correlation_graph)
+correlation_btn.pack(pady=5)
+trend_btn=tk.Button(main_frame,text='Trend Graph',font=('Calibri',12),command=trend_graph)
+trend_btn.pack(pady=5)
 history_btn=tk.Button(main_frame,text='Show History', font=("Calibri",12), command = search_history)
 history_btn.pack(pady=5)
 button=tk.Button(main_frame,text='Get Weather',font=("Calibri",12),command=fetch)
